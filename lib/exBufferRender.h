@@ -5,6 +5,8 @@
 namespace TE {
     class ExBufferRender : public BufferRender {
         public:
+            using BufferRender::BufferRender;
+
             void fill(const std::string &str);
             void set(int x, int y, const std::string &str);
             void set(int x, int y, std::string *str);

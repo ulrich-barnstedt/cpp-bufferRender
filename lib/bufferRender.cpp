@@ -1,4 +1,3 @@
-#include <langinfo.h>
 #include "bufferRender.h"
 
 TE::BufferRender::BufferRender (int height, int width) : height(height), width(width) {

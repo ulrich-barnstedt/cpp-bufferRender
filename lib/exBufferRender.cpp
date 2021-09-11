@@ -1,4 +1,4 @@
-#include "util.h"
+#include "exBufferRender.h"
 
 void TE::ExBufferRender::fill(const std::string &str) {
     for (int i = 0; i < height; i++) {
@@ -22,8 +22,8 @@ void TE::ExBufferRender::verticalArray(int x, int y, std::vector<std::string *> 
     if (!inBounds(x, y)) return;
     trimVector<std::string*>(height, y, arr);
 
-    for (int i = y; i < arr.size(); i++) {
-        buf[i][x] = arr[i];
+    for (int i = 0; i < arr.size(); i++) {
+        buf[i + y][x] = arr[i];
     }
 }
 
@@ -31,8 +31,8 @@ void TE::ExBufferRender::horizontalArray(int x, int y, std::vector<std::string *
     if (!inBounds(x, y)) return;
     trimVector<std::string*>(width, x, arr);
 
-    for (int i = x; i < arr.size(); i++) {
-        buf[y][i] = arr[i];
+    for (int i = 0; i < arr.size(); i++) {
+        buf[y][i + x] = arr[i];
     }
 }
 
@@ -40,8 +40,8 @@ void TE::ExBufferRender::d2Array(int x, int y, std::vector<std::vector<std::stri
     if (!inBounds(x, y)) return;
     trimVector<std::vector<std::string*>>(height, y, arr);
 
-    for (int i = y; i < arr.size(); i++) {
-        horizontalArray(x, i, arr[i]);
+    for (int i = 0; i < arr.size(); i++) {
+        horizontalArray(x, i + y, arr[i]);
     }
 }
 
