@@ -43,7 +43,7 @@ void TE::BufferRender::render () {
             std::string* &prePtr = this->pre[i][j];
 
             if (bufPtr == nullptr) continue;
-            if (bufPtr == prePtr) continue;
+            if (prePtr != nullptr && *bufPtr == *prePtr) continue;
 
             if (prePtr != nullptr) delete prePtr;
             prePtr = bufPtr;
