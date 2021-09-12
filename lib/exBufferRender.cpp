@@ -1,21 +1,44 @@
 #include "exBufferRender.h"
 
-void TE::ExBufferRender::fill(const std::string &str) {
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            buf[i][j] = new std::string(str);
-        }
-    }
-}
-
+// ------------------ Buffer I/O
 void TE::ExBufferRender::set(int x, int y, const std::string &str) {
-    if (!inBounds(x, y)) return;
-    buf[y][x] = new std::string(str);
+    set(x, y, new std::string(str));
 }
 
 void TE::ExBufferRender::set(int x, int y, std::string *str) {
     if (!inBounds(x, y)) return;
+    memoryProtectedOverwrite(x, y, str);
+}
+
+std::string *TE::ExBufferRender::get(int x, int y) {
+    if (!inBounds(x, y)) return nullptr;
+    return buf[y][x];
+}
+
+// ------------------ Checking/adjusting private methods
+
+bool TE::ExBufferRender::inBounds(int x, int y) {
+    return x < width && y < height;
+}
+
+template<typename T> void TE::ExBufferRender::trimVector(int limiter, int offset, std::vector<T> &vec) {
+    if (vec.size() + offset >= limiter) vec.resize(limiter - offset);
+}
+
+//no bounds check / memory safe write
+void TE::ExBufferRender::memoryProtectedOverwrite(int x, int y, std::string *str) {
+    if (pre[y][x] != buf[y][x]) delete buf[y][x];
     buf[y][x] = str;
+}
+
+// ------------------ Utility methods for common operations
+
+void TE::ExBufferRender::fill(const std::string &str) {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            memoryProtectedOverwrite(j, i, new std::string(str));
+        }
+    }
 }
 
 void TE::ExBufferRender::verticalArray(int x, int y, std::vector<std::string *> &arr) {
@@ -23,7 +46,7 @@ void TE::ExBufferRender::verticalArray(int x, int y, std::vector<std::string *> 
     trimVector<std::string*>(height, y, arr);
 
     for (int i = 0; i < arr.size(); i++) {
-        buf[i + y][x] = arr[i];
+        memoryProtectedOverwrite(x, i + y, arr[i]);
     }
 }
 
@@ -32,7 +55,7 @@ void TE::ExBufferRender::horizontalArray(int x, int y, std::vector<std::string *
     trimVector<std::string*>(width, x, arr);
 
     for (int i = 0; i < arr.size(); i++) {
-        buf[y][i + x] = arr[i];
+        memoryProtectedOverwrite(x + i, y, arr[i]);
     }
 }
 
@@ -43,12 +66,4 @@ void TE::ExBufferRender::d2Array(int x, int y, std::vector<std::vector<std::stri
     for (int i = 0; i < arr.size(); i++) {
         horizontalArray(x, i + y, arr[i]);
     }
-}
-
-bool TE::ExBufferRender::inBounds(int x, int y) {
-    return x < width && y < height;
-}
-
-template<typename T> void TE::ExBufferRender::trimVector(int limiter, int offset, std::vector<T> &vec) {
-    if (vec.size() + offset >= limiter) vec.resize(limiter - offset);
 }

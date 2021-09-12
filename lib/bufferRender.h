@@ -16,9 +16,9 @@ namespace TE {
             explicit BufferRender(const terminalDimensions &dim);
             ~BufferRender();
             void render();
-        private:
+        protected:
             std::vector<std::vector<std::string*>> pre;
-
+        private:
             void init();
     };
 }

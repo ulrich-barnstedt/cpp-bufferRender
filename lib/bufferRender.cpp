@@ -33,10 +33,12 @@ TE::BufferRender::~BufferRender() {
 }
 
 void TE::BufferRender::render () {
-    int cursorY = Cursor::getInstance().currentY, cursorX = Cursor::getInstance().currentX;
+    Cursor &cursor = Cursor::getInstance();
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
+            int cursorY = cursor.currentY, cursorX = cursor.currentX;
+
             std::string* &bufPtr = this->buf[i][j];
             std::string* &prePtr = this->pre[i][j];
 
@@ -47,20 +49,12 @@ void TE::BufferRender::render () {
             prePtr = bufPtr;
 
             if (cursorX == j && cursorY == i) {
-                cursorX++;
                 Cursor::getInstance().write(*bufPtr);
-
                 continue;
             }
 
             Cursor::getInstance().move(j, i);
-            cursorY = i;
-            cursorX = j;
-
             Cursor::getInstance().write(*bufPtr);
         }
     }
 }
-
-//std::cout << cursorX << "==" << j << "&&" << cursorY << "==" << i << ";";
-//std::cout << cursorX << ";";

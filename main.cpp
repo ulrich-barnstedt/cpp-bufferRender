@@ -14,7 +14,7 @@ int main() {
 
     for (int i = 0; i < render.height; i++) {
         for (int j = 0; j < render.width; j++) {
-            render.buf[i][j] = new std::string("a");
+            render.set(j, i, "a");
             render.render();
         }
     }
@@ -23,7 +23,7 @@ int main() {
     render.render();
 
     drawBoxes(render);
-    render.buf[1][1] = new std::string("b");
+    render.set(1, 1, "b");
     render.set(2, 2, "b");
 
     render.render();
