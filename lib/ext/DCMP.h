@@ -4,26 +4,28 @@
 #include <type_traits>
 #include "../util/cursor.h"
 #include "Base.h"
+#include "../util/terminalSize.h"
 
 //functions defined in-place because of template problems
 
 namespace TE::EXT {
     template <typename T> class DCMP {
         public:
-            static_assert(std::is_base_of<Base, T>::value, "T must inherit from list");
-            std::vector<std::vector<T&>> data;
+            static_assert(std::is_base_of<Base<T>, T>::value, "T must inherit from list");
+            std::vector<std::vector<T>> data;
             const int height, width;
             DCMP(int height, int width);
+            DCMP(const TE::Util::terminalDimensions &dim);
             void render();
             void init();
-            virtual T& initInstance(int y, int x) = 0;
-        private:
+            virtual T initInstance(int y, int x, bool primary) = 0;
+        protected:
             std::vector<std::vector<T>> mirror;
     };
 
-    template <typename T> DCMP<T>::DCMP(int height, int width) : height(height), width(width) {
-        init();
-    }
+    template <typename T> DCMP<T>::DCMP(int height, int width) : height(height), width(width) {}
+
+    template<typename T> DCMP<T>::DCMP(const TE::Util::terminalDimensions &dim) : width(dim.width), height(dim.height) {}
 
     template <typename T> void DCMP<T>::render() {
         Util::Cursor &cursor = Util::Cursor::getInstance();
@@ -37,21 +39,22 @@ namespace TE::EXT {
                 last = current;
 
                 cursor.move(j, i);
-                cursor << current;
+                cursor << current.toString();
             }
         }
     }
 
     template<typename T> void DCMP<T>::init() {
-        data.reserve(height);
-        mirror.reserve(height);
+        data.resize(height);
+        mirror.resize(height);
 
         for (int i = 0; i < this->height; i++) {
-            data.resize[i].reserve(width);
-            mirror.resize[i].reserve(width);
+            data[i].reserve(width);
+            mirror[i].reserve(width);
 
             for (int j = 0; j < width; j++) {
-                T& newData = initInstance(i, j);
+                data[i].push_back(initInstance(i, j, true));
+                mirror[i].push_back(initInstance(i, j, false));
             }
         }
 

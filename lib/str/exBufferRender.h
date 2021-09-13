@@ -1,5 +1,4 @@
 #pragma once
-
 #include "bufferRender.h"
 
 namespace TE::STR {
