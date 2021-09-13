@@ -3,7 +3,7 @@ project(cpp-bufferRender VERSION 2.2)
 set(CMAKE_CXX_STANDARD 23)
 
 # executable for testing
-add_executable(cpp-bufferRender-TEST main.cpp lib/bufferRender.cpp lib/bufferRender.h lib/terminalSize.h lib/cursor.h lib/terminalSize.cpp lib/cursor.cpp lib/exBufferRender.cpp lib/exBufferRender.h)
+add_executable(cpp-bufferRender-TEST main.cpp lib/str/bufferRender.cpp lib/str/bufferRender.h lib/str/terminalSize.h lib/str/cursor.h lib/str/terminalSize.cpp lib/str/cursor.cpp lib/str/exBufferRender.cpp lib/str/exBufferRender.h)
 
-add_library(cpp-bufferRender lib/bufferRender.cpp lib/bufferRender.h lib/terminalSize.h lib/cursor.h lib/terminalSize.cpp lib/cursor.cpp lib/exBufferRender.cpp lib/exBufferRender.h)
-set_target_properties(cpp-bufferRender PROPERTIES PUBLIC_HEADER lib/exBufferRender.h)
+add_library(cpp-bufferRender lib/str/bufferRender.cpp lib/str/bufferRender.h lib/str/terminalSize.h lib/str/cursor.h lib/str/terminalSize.cpp lib/str/cursor.cpp lib/str/exBufferRender.cpp lib/str/exBufferRender.h)
+set_target_properties(cpp-bufferRender PROPERTIES PUBLIC_HEADER lib/str/exBufferRender.h)
