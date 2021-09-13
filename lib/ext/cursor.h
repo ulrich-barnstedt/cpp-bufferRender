@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace TE::STR {
+namespace TE::EXT {
     class Cursor {
         public:
             static Cursor &getInstance () {
@@ -11,6 +11,7 @@ namespace TE::STR {
             }
             Cursor (Cursor const&) = delete;
             void operator= (Cursor const&) = delete;
+            void operator<< (const std::string &str);
 
             int currentY = 0, currentX = 0;
             void move (int x, int y);

@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include "terminalSize.h"
-#include "cursor.h"
+#include "../ext/cursor.h"
 
 namespace TE::STR {
     class BufferRender {

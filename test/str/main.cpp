@@ -1,5 +1,4 @@
-#include "lib/str/exBufferRender.h"
-#define NO_LEN_DEBUG 0
+#include "../../lib/str/exBufferRender.h"
 
 void drawBoxes (TE::STR::ExBufferRender &render);
 
