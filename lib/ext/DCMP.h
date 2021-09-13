@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <type_traits>
-#include "cursor.h"
+#include "../util/cursor.h"
 #include "Base.h"
 
 //functions defined in-place because of template problems
@@ -26,7 +26,7 @@ namespace TE::EXT {
     }
 
     template <typename T> void DCMP<T>::render() {
-        Cursor &cursor = Cursor::getInstance();
+        Util::Cursor &cursor = Util::Cursor::getInstance();
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
@@ -55,7 +55,7 @@ namespace TE::EXT {
             }
         }
 
-        Cursor::getInstance().move(0, 0);
+        Util::Cursor::getInstance().move(0, 0);
     }
 }
 

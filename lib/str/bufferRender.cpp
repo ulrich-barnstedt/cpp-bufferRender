@@ -4,7 +4,7 @@ TE::STR::BufferRender::BufferRender (int height, int width) : height(height), wi
     this->init();
 }
 
-TE::STR::BufferRender::BufferRender (const terminalDimensions &dim) : height(dim.height), width(dim.width) {
+TE::STR::BufferRender::BufferRender (const Util::terminalDimensions &dim) : height(dim.height), width(dim.width) {
     this->init();
 }
 
@@ -17,7 +17,7 @@ void TE::STR::BufferRender::init () {
         this->pre[i].resize(width);
     }
 
-    Cursor::getInstance().move(0, 0);
+    Util::Cursor::getInstance().move(0, 0);
 }
 
 TE::STR::BufferRender::~BufferRender() {
@@ -33,12 +33,10 @@ TE::STR::BufferRender::~BufferRender() {
 }
 
 void TE::STR::BufferRender::render () {
-    Cursor &cursor = Cursor::getInstance();
+    Util::Cursor &cursor = Util::Cursor::getInstance();
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            int cursorY = cursor.currentY, cursorX = cursor.currentX;
-
             std::string* &bufPtr = this->buf[i][j];
             std::string* &prePtr = this->pre[i][j];
 
@@ -48,13 +46,8 @@ void TE::STR::BufferRender::render () {
             if (prePtr != nullptr) delete prePtr;
             prePtr = bufPtr;
 
-            if (cursorX == j && cursorY == i) {
-                Cursor::getInstance().write(*bufPtr);
-                continue;
-            }
-
-            Cursor::getInstance().move(j, i);
-            Cursor::getInstance().write(*bufPtr);
+            cursor.move(j, i);
+            cursor.write(*bufPtr);
         }
     }
 }

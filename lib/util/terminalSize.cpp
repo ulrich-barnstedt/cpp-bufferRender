@@ -1,6 +1,6 @@
 #include "terminalSize.h"
 
-TE::STR::terminalDimensions TE::STR::getTerminalSize() {
+TE::Util::terminalDimensions TE::Util::getTerminalSize() {
     #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
         CONSOLE_SCREEN_BUFFER_INFO csbi;
         int columns, rows;

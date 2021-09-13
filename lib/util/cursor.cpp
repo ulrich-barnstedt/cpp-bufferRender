@@ -1,6 +1,6 @@
 #include "cursor.h"
 
-void TE::EXT::Cursor::move (int x, int y) {
+void TE::Util::Cursor::move (int x, int y) {
     if (x == currentX && y == currentY) return;
 
     currentY = y;
@@ -10,12 +10,12 @@ void TE::EXT::Cursor::move (int x, int y) {
     printf("\033[%d;%dH", y + 1, x + 1);
 }
 
-void TE::EXT::Cursor::write(const std::string &ref) {
+void TE::Util::Cursor::write(const std::string &ref) {
     currentX++;
 
     std::cout << ref;
 }
 
-void TE::EXT::Cursor::operator<<(const std::string &str) {
+void TE::Util::Cursor::operator<<(const std::string &str) {
     write(str);
 }
