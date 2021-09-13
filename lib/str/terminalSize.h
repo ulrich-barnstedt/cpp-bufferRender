@@ -7,7 +7,7 @@
     #include <unistd.h>
 #endif
 
-namespace TE {
+namespace TE::STR {
     struct terminalDimensions {
         int height;
         int width;

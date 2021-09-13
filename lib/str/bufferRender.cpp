@@ -1,14 +1,14 @@
 #include "bufferRender.h"
 
-TE::BufferRender::BufferRender (int height, int width) : height(height), width(width) {
+TE::STR::BufferRender::BufferRender (int height, int width) : height(height), width(width) {
     this->init();
 }
 
-TE::BufferRender::BufferRender (const terminalDimensions &dim) : height(dim.height), width(dim.width) {
+TE::STR::BufferRender::BufferRender (const terminalDimensions &dim) : height(dim.height), width(dim.width) {
     this->init();
 }
 
-void TE::BufferRender::init () {
+void TE::STR::BufferRender::init () {
     this->buf.resize(height);
     this->pre.resize(height);
 
@@ -20,7 +20,7 @@ void TE::BufferRender::init () {
     Cursor::getInstance().move(0, 0);
 }
 
-TE::BufferRender::~BufferRender() {
+TE::STR::BufferRender::~BufferRender() {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             std::string* &bufPtr = this->buf[i][j];
@@ -32,7 +32,7 @@ TE::BufferRender::~BufferRender() {
     }
 }
 
-void TE::BufferRender::render () {
+void TE::STR::BufferRender::render () {
     Cursor &cursor = Cursor::getInstance();
 
     for (int i = 0; i < height; i++) {

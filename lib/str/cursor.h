@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace TE {
+namespace TE::STR {
     class Cursor {
         public:
             static Cursor &getInstance () {

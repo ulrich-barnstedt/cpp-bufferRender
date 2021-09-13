@@ -6,7 +6,7 @@
 #include "terminalSize.h"
 #include "cursor.h"
 
-namespace TE {
+namespace TE::STR {
     class BufferRender {
         public:
             std::vector<std::vector<std::string*>> buf;

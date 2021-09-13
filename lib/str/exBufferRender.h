@@ -2,7 +2,7 @@
 
 #include "bufferRender.h"
 
-namespace TE {
+namespace TE::STR {
     class ExBufferRender : public BufferRender {
         public:
             using BufferRender::BufferRender;
