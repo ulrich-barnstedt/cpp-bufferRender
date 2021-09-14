@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(CBR VERSION 3.0)
+project(CBR VERSION 3.1)
 set(CMAKE_CXX_STANDARD 23)
 
 add_subdirectory(lib)

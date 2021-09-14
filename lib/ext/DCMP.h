@@ -15,7 +15,7 @@ namespace TE::EXT {
             std::vector<std::vector<T>> data;
             const int height, width;
             DCMP(int height, int width);
-            DCMP(const TE::Util::terminalDimensions &dim);
+            explicit DCMP(const TE::Util::terminalDimensions &dim);
             void render();
             void init();
             virtual T initInstance(int y, int x, bool primary) = 0;
@@ -35,7 +35,7 @@ namespace TE::EXT {
                 T &current = data[i][j];
                 T &last = mirror[i][j];
 
-                if (current == last) return;
+                if (current == last) continue;
                 last = current;
 
                 cursor.move(j, i);
