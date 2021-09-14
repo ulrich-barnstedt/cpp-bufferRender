@@ -1,16 +1,10 @@
-#include "lib/exBufferRender.h"
-#define NO_LEN_DEBUG 0
+#include "../../lib/str/exBufferRender.h"
 
-#if NO_LEN_DEBUG == 1
-    #define CONSTR TE::ExBufferRender render(TE::getTerminalSize());
-#else
-    #define CONSTR TE::ExBufferRender render(20, 20);
-#endif
-
-void drawBoxes (TE::ExBufferRender &render);
+void drawBoxes (TE::STR::ExBufferRender &render);
 
 int main() {
-    CONSTR
+    //TE::STR::ExBufferRender render(TE::Util::getTerminalSize());
+    TE::STR::ExBufferRender render(60, 200);
 
     for (int i = 0; i < render.height; i++) {
         for (int j = 0; j < render.width; j++) {
@@ -28,10 +22,28 @@ int main() {
 
     render.render();
 
+    for (int m = 0; m < 10; m++) {
+        for (int l = 0; l < 10; l++) {
+            for (int i = 0; i < render.height; i++) {
+                render.fill("_");
+                std::vector<std::vector<std::string*>> vec(10);
+
+                for (int j = 0; j < 10; j++) {
+                    for (int k = 0; k < 100; k++) {
+                        vec[j].push_back(new std::string(std::to_string(l)));
+                    }
+                }
+
+                render.d2Array(3, i, vec);
+                render.render();
+            }
+        }
+    }
+
     return 0;
 }
 
-void drawBoxes (TE::ExBufferRender &render) {
+void drawBoxes (TE::STR::ExBufferRender &render) {
     std::vector<std::string*> vec(10);
     for (int i = 0; i < 10; i++) vec[i] = new std::string("#");
     std::vector<std::string*> vec2(10);

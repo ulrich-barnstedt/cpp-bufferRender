@@ -1,8 +1,7 @@
 #pragma once
-
 #include <iostream>
 
-namespace TE {
+namespace TE::Util {
     class Cursor {
         public:
             static Cursor &getInstance () {
@@ -11,8 +10,9 @@ namespace TE {
             }
             Cursor (Cursor const&) = delete;
             void operator= (Cursor const&) = delete;
+            void operator<< (const std::string &str);
 
-            int currentY = 0, currentX = 0;
+            int currentY = -1, currentX = -1;
             void move (int x, int y);
             void write (const std::string &ref);
         private:
